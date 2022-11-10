@@ -85,7 +85,7 @@ pip install -r requirements.txt
 ```
 
 
-## Initialise database (migrations)
+## Initialise database (migrations) (only needed if there is no `migrations` folder)
 
 ```shell
 flask db init
@@ -104,7 +104,7 @@ flask db init                                                                   
   Please edit configuration/connection/logging settings in '/Users/tomaszkluczkowski/dev/k8s-workshop/migrations/alembic.ini' before proceeding.
 ```
 
-## Generate initial migration
+## Generate initial migration (only needed if there is no `migrations` folder)
 
 ```shell
 flask db migrate -m "initial migration"
