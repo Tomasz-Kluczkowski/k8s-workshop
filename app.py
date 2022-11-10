@@ -64,4 +64,4 @@ def record_my_user_to_db():
         return redirect(url_for("record_my_user_to_db"))
 
     users = db.session.execute(db.select(User).order_by(User.username)).scalars()
-    return render_template("form.html", recorded_username=user_name, users=users)
+    return render_template("form.html", users=users)

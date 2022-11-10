@@ -3,10 +3,8 @@
 <input type="text" id="username" name="username" placeholder="username">
 
 <button type="submit">Save to DB</button>
-{% if recorded_username %}
-  <h1>Save user to database: <b>{{ recorded_username }}</b></h1>
-{% endif %}
 {% if users %}
+  <h1>Users List</h1>
   {% for user in users %}
     <ul>
       <li>{{ user.username }}</li>
