@@ -1,6 +1,6 @@
 import socket
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from config import AppConfig
@@ -51,9 +51,17 @@ def hello_world():
 
 @app.route('/users', methods=["GET", "POST"])
 def record_my_user_to_db():
-    message = ''
+    user_name = ''
+
     if request.method == "POST":
-        # getting input with name = fname in HTML form
-        user_name = request.form.get("username")
-        message = f"Your username {user_name} was recorded to database."
-    return render_template("form.html", message=message)
+        user_name = request.form["username"]
+        user = User(
+            username=user_name,
+        )
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for("record_my_user_to_db"))
+
+    users = db.session.execute(db.select(User).order_by(User.username)).scalars()
+    return render_template("form.html", recorded_username=user_name, users=users)

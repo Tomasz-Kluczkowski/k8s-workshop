@@ -3,6 +3,14 @@
 <input type="text" id="username" name="username" placeholder="username">
 
 <button type="submit">Save to DB</button>
-{% if message %}
-  <h1>{{ message }}</h1>
+{% if recorded_username %}
+  <h1>Save user to database: <b>{{ recorded_username }}</b></h1>
 {% endif %}
+{% if users %}
+  {% for user in users %}
+    <ul>
+      <li>{{ user.username }}</li>
+    </ul>
+  {% endfor %}
+{% endif %}
+
