@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgres-migration
+spec:
+  backoffLimit: 50
+  ttlSecondsAfterFinished: 600
+  template:
+    spec:
+      containers:
+        - name: postgres-migration
+          image: tomaszkluczkowski/hello-world-app:1.0.1
+          imagePullPolicy: Always
+          command: ["flask", "db", "upgrade"]
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+      restartPolicy: Never

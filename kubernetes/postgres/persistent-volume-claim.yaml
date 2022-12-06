@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-persistent-volume-claim
+  namespace: hello-world-app
+  labels:
+    app: postgres
+spec:
+  storageClassName: hostpath
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Mi
